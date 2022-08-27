@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Recipes</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+
+    <string name="title_select_image_action">Select Image Via</string>
+    <string name="label_camera">Camera</string>
+    <string name="label_gallery">Gallery</string>
+</resources>
