@@ -105,19 +105,16 @@ class AddUpdateDish : AppCompatActivity(), View.OnClickListener {
 
                 R.id.et_type ->{
                     customItemListDialog("Select Dish Type", Constants.dishTypes(), Constants.DISH_TYPE)
-
                     return
                 }
 
                 R.id.et_category -> {
                     customItemListDialog("Select Category", Constants.dishCategories(), Constants.DISH_CATEGORY)
-
                     return
                 }
 
                 R.id.et_cooking_time -> {
                     customItemListDialog("Select Cooking Time", Constants.dishCookTime(), Constants.DISH_COOKING_TIME)
-
                     return
                 }
 
@@ -153,8 +150,6 @@ class AddUpdateDish : AppCompatActivity(), View.OnClickListener {
                             Toast.makeText(this@AddUpdateDish, "Cooking Direction cannot be empty", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
-//                            Toast.makeText(this@AddUpdateDish, "Toast Shown", Toast.LENGTH_SHORT).show()
-//
                             val favDishDetails: FavDish = FavDish(
                                 mImagePath,
                                 Constants.DISH_IMAGE_SOURCE_LOCAL,
@@ -170,7 +165,6 @@ class AddUpdateDish : AppCompatActivity(), View.OnClickListener {
                             Toast.makeText(this@AddUpdateDish, "Added Dish to DB", Toast.LENGTH_SHORT).show()
                             Log.e("Insertion", "Success")
                             finish()
-
                         }
                     }
                 }
