@@ -3,7 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
 }
+// kotlin-parcelize is added to parse objects passed through fragments to display dish data
 
 android {
     compileSdk 32

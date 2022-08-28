@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipes.R
 import com.example.recipes.application.FavDishApplication
 import com.example.recipes.databinding.FragmentAllDishesBinding
+import com.example.recipes.model.entities.FavDish
 import com.example.recipes.view.activities.AddUpdateDish
+import com.example.recipes.view.activities.MainActivity
 import com.example.recipes.view.adapters.FavDishAdapter
 import com.example.recipes.viewmodel.FavDishViewModel
 import com.example.recipes.viewmodel.FavDishViewModelFactory
@@ -79,7 +81,21 @@ class AllDishesFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun dishDetails(){
-        findNavController().navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails())
+    fun dishDetails(favDish: FavDish){
+        findNavController().navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails(
+            favDish
+        ))
+
+        if (requireActivity() is MainActivity){
+            (activity as MainActivity?)?.hideBottomNavigation()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (requireActivity() is MainActivity){
+            (activity as MainActivity?)?.showBottomNavigation()
+        }
     }
 }

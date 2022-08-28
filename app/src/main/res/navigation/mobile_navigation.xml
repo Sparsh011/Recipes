@@ -30,5 +30,10 @@
         android:id="@+id/navigation_dish_details"
         android:name="com.example.recipes.view.fragments.DishDetailFragment"
         android:label="@string/title_dish_details"
-        tools:layout="@layout/fragment_dish_detail" />
+        tools:layout="@layout/fragment_dish_detail" >
+        <argument
+            android:name="dishDetails"
+            app:argType="com.example.recipes.model.entities.FavDish"
+            />
+    </fragment>
 </navigation>
