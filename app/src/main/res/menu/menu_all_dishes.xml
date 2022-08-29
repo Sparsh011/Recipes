@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_filter_dishes"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="@string/action_filter_dishes"/>
+    <item
         android:id="@+id/action_add_dish"
         android:icon="@drawable/ic_baseline_add_24"
         android:title="Add Dish"
+        android:orderInCategory="101"
         app:showAsAction="always"
         />
 </menu>

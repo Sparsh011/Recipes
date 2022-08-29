@@ -15,12 +15,6 @@ class CustomListItemAdapter(
 ) :
     RecyclerView.Adapter<CustomListItemAdapter.ViewHolder>() {
 
-    /**
-     * Inflates the item views which is designed in xml layout file
-     *
-     * create a new
-     * {@link ViewHolder} and initializes some private fields to be used by RecyclerView.
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemCustomListBinding =
             ItemCustomListBinding.inflate(LayoutInflater.from(activity), parent, false)

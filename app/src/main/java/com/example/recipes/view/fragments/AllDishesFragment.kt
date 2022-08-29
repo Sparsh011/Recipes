@@ -1,6 +1,7 @@
 package com.example.recipes.view.fragments
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,12 +14,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipes.R
 import com.example.recipes.application.FavDishApplication
+import com.example.recipes.databinding.DialogCustomListBinding
 import com.example.recipes.databinding.FragmentAllDishesBinding
 import com.example.recipes.model.entities.FavDish
+import com.example.recipes.utils.Constants
 import com.example.recipes.view.activities.AddUpdateDish
 import com.example.recipes.view.activities.MainActivity
+import com.example.recipes.view.adapters.CustomListItemAdapter
 import com.example.recipes.view.adapters.FavDishAdapter
 import com.example.recipes.viewmodel.FavDishViewModel
 import com.example.recipes.viewmodel.FavDishViewModelFactory
@@ -78,6 +83,11 @@ class AllDishesFragment : Fragment() {
                 startActivity(Intent(requireActivity(), AddUpdateDish::class.java))
                 return true
             }
+
+            R.id.action_filter_dishes ->{
+                filterDishesListDialog()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -92,7 +102,6 @@ class AllDishesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         if (requireActivity() is MainActivity){
             (activity as MainActivity?)?.showBottomNavigation()
         }
@@ -116,4 +125,30 @@ class AllDishesFragment : Fragment() {
         alertDialog.setCancelable(false)
         alertDialog.show()
     }
+
+    private fun filterDishesListDialog(){
+        val customListDialog = Dialog(requireActivity())
+        val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
+
+        customListDialog.setContentView(binding.root)
+        binding.tvTitle.text = resources.getString(R.string.title_select_filter_option)
+
+        val dishTypes = Constants.dishTypes()
+        dishTypes.add(0, Constants.ALL_ITEMS)
+        binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
+        val adapter = CustomListItemAdapter(requireActivity(), dishTypes, Constants.FILTER_SELECTION)
+        binding.rvList.adapter = adapter
+        customListDialog.show()
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

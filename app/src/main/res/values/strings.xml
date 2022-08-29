@@ -24,4 +24,6 @@
     <string name="title_delete_dish_title">Delete Recipe</string>
     <string name="yes_delete">Yes</string>
     <string name="lbl_no">No</string>
+    <string name="action_filter_dishes">Filter Dishes</string>
+    <string name="title_select_filter_option">Filter By</string>
 </resources>
