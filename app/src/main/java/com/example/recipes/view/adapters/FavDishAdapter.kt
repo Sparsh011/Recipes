@@ -1,12 +1,19 @@
 package com.example.recipes.view.adapters
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.recipes.R
 import com.example.recipes.databinding.ItemDishLayoutBinding
 import com.example.recipes.model.entities.FavDish
+import com.example.recipes.utils.Constants
+import com.example.recipes.view.activities.AddUpdateDish
 import com.example.recipes.view.fragments.AllDishesFragment
 import com.example.recipes.view.fragments.FavoriteDishesFragment
 
@@ -35,7 +42,34 @@ class FavDishAdapter(
             if (fragment is FavoriteDishesFragment){
                 fragment.dishDetails(dish)
             }
+        }
 
+        holder.ibMore.setOnClickListener{
+            val popup = PopupMenu(fragment.context, holder.ibMore)
+            popup.menuInflater.inflate(R.menu.menu_adapter, popup.menu)
+
+            popup.setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_edit_dish){
+                    val intent = Intent(fragment.requireActivity(), AddUpdateDish::class.java)
+                    intent.putExtra(Constants.EXTRA_DISH_DETAILS, dish)
+                    fragment.requireActivity().startActivity(intent)
+                }
+                else if (it.itemId === R.id.action_delete_dish){
+//                    Log.i("Clicked on ", "Delete")
+                    if (fragment is AllDishesFragment){
+                        fragment.deleteDish(dish)
+                    }
+                }
+                true
+            }
+            popup.show()
+
+            if (fragment is AllDishesFragment){
+                holder.ibMore.visibility = View.VISIBLE
+            }
+            else if (fragment is FavoriteDishesFragment){
+                holder.ibMore.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -51,5 +85,6 @@ class FavDishAdapter(
     class ViewHolder(view: ItemDishLayoutBinding): RecyclerView.ViewHolder(view.root){
         val ivDishImage = view.ivDishImageInCardView
         val tvTitle = view.tvDishTitle
+        val ibMore = view.ibMore
     }
 }

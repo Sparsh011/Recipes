@@ -1,9 +1,6 @@
 package com.example.recipes.model.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.recipes.model.entities.FavDish
 import kotlinx.coroutines.flow.Flow
 
@@ -24,6 +21,9 @@ interface FavDishDAO {
 //    Query for favourite dishes ONLY -
     @Query("SELECT * FROM FAV_DISHES_TABLE WHERE favourite_dish = 1")
     fun getFavoriteDishesList(): Flow<List<FavDish>>
+
+    @Delete
+    suspend fun deleteFavDishDetails(favDish: FavDish)
 }
 
 
