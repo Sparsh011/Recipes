@@ -82,9 +82,7 @@ class AllDishesFragment : Fragment() {
     }
 
     fun dishDetails(favDish: FavDish){
-        findNavController().navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails(
-            favDish
-        ))
+        findNavController().navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails(favDish))
 
         if (requireActivity() is MainActivity){
             (activity as MainActivity?)?.hideBottomNavigation()

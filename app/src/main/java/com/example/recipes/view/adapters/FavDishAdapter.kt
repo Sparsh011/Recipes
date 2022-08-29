@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.recipes.databinding.ItemDishLayoutBinding
 import com.example.recipes.model.entities.FavDish
 import com.example.recipes.view.fragments.AllDishesFragment
+import com.example.recipes.view.fragments.FavoriteDishesFragment
 
 class FavDishAdapter(
     private val fragment: Fragment
@@ -31,6 +32,10 @@ class FavDishAdapter(
             if (fragment is AllDishesFragment){
                 fragment.dishDetails(dish)
             }
+            if (fragment is FavoriteDishesFragment){
+                fragment.dishDetails(dish)
+            }
+
         }
     }
 

@@ -15,4 +15,5 @@
     <string name="lbl_ingredients">Ingredients</string>
     <string name="lbl_direction_to_cook">Directions To Cook</string>
     <string name="approximate_cooking_time">Approximate Cooking Time:</string>
+    <string name="no_favorite_dish_added_yet">No Favorite Dish Added Yet</string>
 </resources>

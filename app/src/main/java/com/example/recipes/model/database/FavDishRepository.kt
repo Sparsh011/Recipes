@@ -16,4 +16,22 @@ class FavDishRepository(private val favDishDao: FavDishDAO) {
 
 //    Retrieving all the dishes
     val allDishesList: Flow<List<FavDish>> = favDishDao.getAllDishes()
+
+//    Updating data-
+    @WorkerThread
+    suspend fun updateFavDishData(favDish: FavDish){
+//    This favDish is received from FavDishViewModel and then this favDish is passed to DAO
+        favDishDao.updateFavDishDetails(favDish)
+    }
+
+    val favoriteDishes: Flow<List<FavDish>> = favDishDao.getFavoriteDishesList()
 }
+
+
+
+
+
+
+
+
+

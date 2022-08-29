@@ -73,8 +73,10 @@ dependencies {
 //    Kotlin Extensions and Coroutines support for Room
     //noinspection GradleDependency
     implementation("androidx.room:room-ktx:$roomVersion")
-
     kapt("androidx.room:room-compiler:$roomVersion")
+
+//    Palette dependency -
+    implementation 'androidx.palette:palette-ktx:1.0.0'
 
 
 }

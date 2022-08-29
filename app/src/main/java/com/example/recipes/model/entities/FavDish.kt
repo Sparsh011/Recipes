@@ -18,6 +18,10 @@ data class FavDish (
 
     @ColumnInfo(name = "cooking_time") val  cookingTime: String,
     @ColumnInfo(name = "instructions") val directionToCook: String,
-    @ColumnInfo(name = "favourite_dish") val favouriteDish: Boolean = false,
+    @ColumnInfo(name = "favourite_dish") var favouriteDish: Boolean = false, // true -> 1, false -> 0. Will be used to retrieve favDish
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) : Parcelable
+
+
+
+

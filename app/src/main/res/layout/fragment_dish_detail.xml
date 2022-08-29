@@ -51,7 +51,6 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColor="@color/blue_grey_700"
             android:textSize="@dimen/_20sdp"
-            android:gravity="center"
             android:textStyle="bold|italic"
             tools:text="Dish Title" />
 
