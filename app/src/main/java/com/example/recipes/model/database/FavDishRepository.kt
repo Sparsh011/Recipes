@@ -31,6 +31,8 @@ class FavDishRepository(private val favDishDao: FavDishDAO) {
 //    This favDish is received from FavDishViewModel and then this favDish is passed to DAO
         favDishDao.deleteFavDishDetails(favDish)
     }
+
+    fun filteredListDishes(value: String): Flow<List<FavDish>> = favDishDao.getFilteredDishes(value)
 }
 
 
