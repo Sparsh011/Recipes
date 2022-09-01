@@ -1,6 +1,7 @@
 package com.example.recipes.view.activities
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -41,12 +42,12 @@ class MainActivity : AppCompatActivity() {
 //        Hiding the bottom navigation using animation -
         binding.navView.clearAnimation()
         binding.navView.animate().translationY(binding.navView.height.toFloat()).duration = 300
+        binding.navView.visibility = View.GONE
     }
     fun showBottomNavigation(){
 //        Hiding the bottom navigation using animation -
         binding.navView.clearAnimation()
         binding.navView.animate().translationY(0f).duration = 300
+        binding.navView.visibility = View.VISIBLE
     }
-
-
 }

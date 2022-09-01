@@ -56,7 +56,7 @@ class DishDetailFragment : Fragment() {
             mBinding!!.tvCategory.text = it.dishDetails.category
             mBinding!!.tvIngredients.text = it.dishDetails.ingredients
             mBinding!!.tvCookingDirection.text = it.dishDetails.directionToCook
-            mBinding!!.tvCookingTime.text = it.dishDetails.cookingTime
+            mBinding!!.tvCookingTime.text = resources.getString(R.string.approximate_cooking_time, it.dishDetails.cookingTime)
             if (args.dishDetails.favouriteDish){
                 mBinding!!.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_selected))
             }
