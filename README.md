@@ -3,6 +3,8 @@
 <h3 align="left">This app fetches a random dish from Spoonacular API and it can be added to Favorites</h3>
 <img align="left" alt="img" width="250" height="500" src="https://user-images.githubusercontent.com/93155464/188082352-c2f86748-ed0f-45f1-a408-9521f98f6613.jpeg">
 <img align="center" alt="img" width="250" height="500" src="https://user-images.githubusercontent.com/93155464/188083025-54a1e0c9-f6d5-443f-87f7-9e62839fbed1.jpeg">
+<img align="center" alt="img" width="250" height="500" src="https://user-images.githubusercontent.com/93155464/188093634-cff945c5-0f2b-4073-9848-0f82904162b2.jpeg">
+
 
 <h3 align="left">Adding a new dish's recipe. All the recipes will be stored in local database using Room. PS: Random dish that is added to favorites is also stored in database</h3>
 <img align="left" alt="img" width="250" height="500" src="https://user-images.githubusercontent.com/93155464/188084504-75fd0efe-96bc-4da5-ac88-c7d483d89f61.jpeg">
