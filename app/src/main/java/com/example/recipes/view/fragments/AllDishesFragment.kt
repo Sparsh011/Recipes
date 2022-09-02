@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import android.widget.GridLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -115,10 +116,12 @@ class AllDishesFragment : Fragment() {
         builder.setIcon(android.R.drawable.ic_dialog_alert)
         builder.setPositiveButton(resources.getString(R.string.yes_delete)){dialogInterface, _ ->
             mFavDishViewModel.delete(dish)
+            Toast.makeText(requireActivity(), dish.title + " deleted", Toast.LENGTH_SHORT).show()
             dialogInterface.dismiss()
         }
 
         builder.setNegativeButton(resources.getString(R.string.lbl_no)){dialogInterface, _ ->
+            Toast.makeText(requireActivity(), "Unable to delete" + dish.title, Toast.LENGTH_SHORT).show()
             dialogInterface.dismiss()
         }
 
@@ -144,7 +147,7 @@ class AllDishesFragment : Fragment() {
 
     fun filterSelection(filterItemSelection: String){
         mCustomListDialog.dismiss()
-
+        Toast.makeText(requireActivity(), "Filtered by $filterItemSelection", Toast.LENGTH_SHORT).show()
         Log.i("Filter Selection", filterItemSelection)
 
         if (filterItemSelection == Constants.ALL_ITEMS){
@@ -181,14 +184,3 @@ class AllDishesFragment : Fragment() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-

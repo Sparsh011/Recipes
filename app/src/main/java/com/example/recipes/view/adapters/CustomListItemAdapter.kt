@@ -36,6 +36,7 @@ class CustomListItemAdapter(
             }
             if (fragment is AllDishesFragment){
                 fragment.filterSelection(item)
+
             }
         }
     }
