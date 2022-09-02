@@ -27,4 +27,5 @@
     <string name="action_filter_dishes">Filter Dishes</string>
     <string name="title_select_filter_option">Filter By</string>
     <string name="loading_dish">Loading Dish...</string>
+    <string name="category">Category: %1$s</string>
 </resources>

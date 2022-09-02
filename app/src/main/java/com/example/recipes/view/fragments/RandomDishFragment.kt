@@ -110,7 +110,7 @@ class RandomDishFragment : Fragment() {
             mBinding!!.tvType.text = dishType
         }
 
-        mBinding!!.tvCategory.text = "Other"
+        mBinding!!.tvCategory.text = resources.getString(R.string.category, "Other")
         var ingredients = ""
         for (value in recipe.extendedIngredients){
             if (ingredients.isEmpty()){

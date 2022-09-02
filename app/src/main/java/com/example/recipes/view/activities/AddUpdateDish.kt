@@ -209,7 +209,7 @@ class AddUpdateDish : AppCompatActivity(), View.OnClickListener {
 
                             if (dishId == 0){
                                 mFavDishViewModel.insert(favDishDetails)
-                                Toast.makeText(this@AddUpdateDish, "Added Dish to DB", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@AddUpdateDish, "Added Recipe!", Toast.LENGTH_SHORT).show()
                                 Log.e("Insertion", "Success")
                             }
                             else{

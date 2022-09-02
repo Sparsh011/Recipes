@@ -53,7 +53,7 @@ class DishDetailFragment : Fragment() {
             mBinding!!.tvType.text = it.dishDetails.type.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
             }
-            mBinding!!.tvCategory.text = it.dishDetails.category
+            mBinding!!.tvCategory.text = resources.getString(R.string.category, it.dishDetails.category)
             mBinding!!.tvIngredients.text = it.dishDetails.ingredients
             mBinding!!.tvCookingDirection.text = it.dishDetails.directionToCook
             mBinding!!.tvCookingTime.text = resources.getString(R.string.approximate_cooking_time, it.dishDetails.cookingTime)

@@ -78,7 +78,7 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:textColor="@color/grey_900"
                 android:textSize="@dimen/_14sdp"
-                tools:text="Category" />
+                android:text="@string/category" />
 
             <TextView
                 android:id="@+id/tv_ingredients_label"

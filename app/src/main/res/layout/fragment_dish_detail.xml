@@ -73,9 +73,9 @@
             android:layout_below="@id/tv_type"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:text="@string/category"
             android:textColor="@color/blue_grey_700"
-            android:textSize="@dimen/_14sdp"
-            tools:text="Category" />
+            android:textSize="@dimen/_14sdp" />
 
         <TextView
             android:id="@+id/tv_ingredients_label"
