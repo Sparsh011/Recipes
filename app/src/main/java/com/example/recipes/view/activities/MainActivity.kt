@@ -10,8 +10,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.*
 import com.example.recipes.R
 import com.example.recipes.databinding.ActivityMainBinding
+import com.example.recipes.model.notification.NotifyWorker
+import com.example.recipes.utils.Constants
+import kotlinx.coroutines.flow.combine
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +37,13 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(mNavController, appBarConfiguration)
         binding.navView.setupWithNavController(mNavController)
+
+        if(intent.hasExtra(Constants.NOTIFICATION_ID)){
+            val notificationId = intent.getIntExtra(Constants.NOTIFICATION_ID, 0)
+            binding.navView.selectedItemId = R.id.navigation_random_dish
+        }
+
+        startWork()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -50,4 +62,22 @@ class MainActivity : AppCompatActivity() {
         binding.navView.animate().translationY(0f).duration = 300
         binding.navView.visibility = View.VISIBLE
     }
+
+    private fun startWork(){
+        WorkManager.getInstance(this)
+            .enqueueUniquePeriodicWork("Recipes Notify Work", //allows you to enqueue a uniquely-named PeriodicWorkRequest
+            ExistingPeriodicWorkPolicy.KEEP, // If a worker already exists, a new one won't be created in .KEEP. In case of .REPLACE, the old worker is replaced with a new one
+            createWorkRequest())
+    }
+
+    private fun createWorkRequest() = PeriodicWorkRequestBuilder<NotifyWorker>(15, TimeUnit.MINUTES)
+        .setConstraints(createConstraints())
+        .build()
+
+    private fun createConstraints() = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+        .setRequiresCharging(false)
+        .setRequiresBatteryNotLow(true)
+        .build()
+
 }

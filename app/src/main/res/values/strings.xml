@@ -28,4 +28,7 @@
     <string name="title_select_filter_option">Filter By</string>
     <string name="loading_dish">Loading Dish...</string>
     <string name="category">Category: %1$s</string>
+    <string name="action_share_dish">Share Dish</string>
+    <string name="notification_subtitle">Tap For More Details</string>
+    <string name="notification_title">Checkout New Dish Recipes</string>
 </resources>
