@@ -12,7 +12,7 @@
 <li>Retrofit</li>
 <li>Glide</li>
 <li>RxJava</li>
-<li>Spoonacular API</li>
+<li><a href="https://spoonacular.com/food-api">Spoonacular API</a></li>
 </ul>
 
 <h2 id="screenshots">Screenshots</h2>
