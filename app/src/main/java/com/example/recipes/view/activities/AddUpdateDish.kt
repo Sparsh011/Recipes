@@ -73,10 +73,10 @@ class AddUpdateDish : AppCompatActivity(), View.OnClickListener {
 
         setContentView(mBinding.root)
 
-//        Adding back button in the toolbar -
         if (intent.hasExtra(Constants.EXTRA_DISH_DETAILS)){
             mFavDishDetails = intent.getParcelableExtra(Constants.EXTRA_DISH_DETAILS)
         }
+
         setupActionBar()
 
         mFavDishDetails?.let {
