@@ -3,15 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.recipes">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28"
-        />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-
-<!--    Note - Giving name to the application so that our app is linked to the FavDishApplication-->
     <application
         android:name=".application.FavDishApplication"
         android:allowBackup="true"
@@ -23,13 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Recipes"
         tools:targetApi="31">
-<!--        Note - label is the text that will be shown in the ActionBar. configChanges set to orientation prevents restarts when the orientation changes.-->
+        <activity
+            android:name=".view.activities.SearchRecipeFromAPI"
+            android:exported="false" />
+        <!-- Note - label is the text that will be shown in the ActionBar. configChanges set to orientation prevents restarts when the orientation changes. -->
         <activity
             android:name=".view.activities.AddUpdateDish"
-            android:label="Add Dish"
-            android:theme="@style/Theme.Recipes.NoActionBar"
             android:configChanges="orientation"
-            />
+            android:label="Add Dish"
+            android:theme="@style/Theme.Recipes.NoActionBar" />
         <activity
             android:name=".view.activities.SplashActivity"
             android:exported="true">
