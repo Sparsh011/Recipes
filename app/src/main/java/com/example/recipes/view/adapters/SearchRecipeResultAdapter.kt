@@ -1,6 +1,5 @@
 package com.example.recipes.view.adapters
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +25,8 @@ class SearchRecipeResultAdapter (
         val recipe = recipes!!.results[position]
         Glide.with(context)
             .load(recipe.image)
+            .centerCrop()
+            .placeholder(R.drawable.favorite_button_background)
             .into(holder.recipeImage)
 
         holder.recipeTitle.text = recipe.title

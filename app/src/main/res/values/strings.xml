@@ -31,4 +31,5 @@
     <string name="action_share_dish">Share Dish</string>
     <string name="notification_subtitle">Tap For More Details</string>
     <string name="notification_title">Checkout New Dish Recipes</string>
+    <string name="search_recipe_from_web">Search Recipe From Web</string>
 </resources>

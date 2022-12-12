@@ -1,35 +1,31 @@
 package com.example.recipes.viewmodel
 
-import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipes.model.entities.SearchRecipeResult
 import com.example.recipes.model.network.RandomDishApiService
-import kotlinx.coroutines.Dispatchers
+import com.example.recipes.utils.Resource
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.IOException
+import retrofit2.Response
 
 class SearchRecipeViewModel: ViewModel() {
     private val searchRecipeApiService = RandomDishApiService()
+    val searchRecipeObserver : MutableLiveData<Resource<SearchRecipeResult>> = MutableLiveData()
 
-    fun searchRecipe(query: String) : SearchRecipeResult?{
-        var searchRecipeResult : SearchRecipeResult? = null
+    fun searchRecipe(query: String) = viewModelScope.launch {
+        searchRecipeObserver.postValue(Resource.Loading())
+        val response = searchRecipeApiService.getSearchRecipeResult(query)
+        searchRecipeObserver.postValue(handleSearchRecipeResponse(response))
+    }
 
-        viewModelScope.launch(Dispatchers.IO) {
-             val searchDishesResponse = try {
-                searchRecipeApiService.getSearchRecipeResult(query)
-            } catch (e : IOException){
-                Log.e("SearchRecipeException", e.message.toString())
-                 return@launch
-            }
-
-            if (searchDishesResponse.isSuccessful && searchDishesResponse.body() != null){
-                searchRecipeResult = searchDishesResponse.body()
-                Log.i("searchRecipe", searchDishesResponse.body()!!.results.size.toString())
+    private fun handleSearchRecipeResponse(response: Response<SearchRecipeResult>): Resource<SearchRecipeResult>? {
+        if(response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                return Resource.Success(resultResponse)
             }
         }
 
-        return searchRecipeResult
+        return Resource.Error(response.message())
     }
 }
