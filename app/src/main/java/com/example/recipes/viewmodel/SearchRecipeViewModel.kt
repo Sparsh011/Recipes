@@ -19,7 +19,7 @@ class SearchRecipeViewModel: ViewModel() {
         searchRecipeObserver.postValue(handleSearchRecipeResponse(response))
     }
 
-    private fun handleSearchRecipeResponse(response: Response<SearchRecipeResult>): Resource<SearchRecipeResult>? {
+    private fun handleSearchRecipeResponse(response: Response<SearchRecipeResult>): Resource<SearchRecipeResult> {
         if(response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)

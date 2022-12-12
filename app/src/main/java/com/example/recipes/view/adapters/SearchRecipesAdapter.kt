@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.recipes.R
 import com.example.recipes.model.entities.SearchRecipeResult
 
-class SearchRecipeResultAdapter (
+class SearchRecipesAdapter (
     private val context: Context
-        ): RecyclerView.Adapter<SearchRecipeResultAdapter.SearchRecipeResultViewHolder>() {
+        ): RecyclerView.Adapter<SearchRecipesAdapter.SearchRecipeResultViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchRecipeResultViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search_recipe_result, parent, false)
@@ -22,7 +22,8 @@ class SearchRecipeResultAdapter (
 
 
     override fun onBindViewHolder(holder: SearchRecipeResultViewHolder, position: Int) {
-        val recipe = recipes!!.results[position]
+        val recipes = recipesResponse!!.results
+        val recipe = recipes[position]
         Glide.with(context)
             .load(recipe.image)
             .centerCrop()
@@ -32,14 +33,14 @@ class SearchRecipeResultAdapter (
         holder.recipeTitle.text = recipe.title
     }
 
-    private var recipes : SearchRecipeResult?  = null
+    private var recipesResponse : SearchRecipeResult?  = null
 
     override fun getItemCount(): Int {
-        return recipes!!.results.size
+        return recipesResponse!!.results.size
     }
 
     fun updateRecipes(recipeResult: SearchRecipeResult){
-        recipes = recipeResult
+        recipesResponse = recipeResult
         notifyDataSetChanged()
     }
 

@@ -10,59 +10,64 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipes.databinding.ActivitySearchRecipeFromApiBinding
 import com.example.recipes.model.entities.SearchRecipeResult
 import com.example.recipes.utils.Resource
-import com.example.recipes.view.adapters.SearchRecipeResultAdapter
+import com.example.recipes.view.adapters.SearchRecipesAdapter
 import com.example.recipes.viewmodel.SearchRecipeViewModel
 
 class SearchRecipeFromAPI : AppCompatActivity() {
-    private var bindingSearchRecipeFromAPI : ActivitySearchRecipeFromApiBinding? = null
-    private lateinit var mSearchRecipeViewModel: SearchRecipeViewModel
-    private lateinit var searchRecipeResultAdapter: SearchRecipeResultAdapter
+    private var mBinding : ActivitySearchRecipeFromApiBinding? = null
+    private lateinit var searchRecipeViewModel: SearchRecipeViewModel
+    private lateinit var searchRecipesAdapter: SearchRecipesAdapter
     private val TAG = "searchRecipeActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindingSearchRecipeFromAPI = ActivitySearchRecipeFromApiBinding.inflate(layoutInflater)
-        setContentView(bindingSearchRecipeFromAPI!!.root)
+        mBinding = ActivitySearchRecipeFromApiBinding.inflate(layoutInflater)
+        setContentView(mBinding!!.root)
         supportActionBar!!.hide()
 
-        mSearchRecipeViewModel = ViewModelProvider(this)[SearchRecipeViewModel::class.java]
+        searchRecipeViewModel = ViewModelProvider(this)[SearchRecipeViewModel::class.java]
 
-        bindingSearchRecipeFromAPI!!.ivSearchRecipe.setOnClickListener{
-            val querySearchRecipe = bindingSearchRecipeFromAPI!!.etSearchRecipeFromApi.text.toString()
-            mSearchRecipeViewModel.searchRecipe(querySearchRecipe)
+        mBinding!!.ivSearchRecipe.setOnClickListener{
+            val searchQuery = mBinding!!.etSearchRecipeFromApi.text.toString()
 
-            mSearchRecipeViewModel.searchRecipeObserver.observe(this, Observer { response ->
-                when(response) {
-                    is Resource.Success -> {
-                        response.data?.let { searchRecipeResult ->
-                            Log.i(TAG, searchRecipeResult.results.size.toString())
-                            bindingSearchRecipeFromAPI!!.pbSearchRecipes.visibility = View.GONE
-                            populateDataInUI(searchRecipeResult)
-                        }
-                    }
-                    is Resource.Error -> {
-                        response.message?.let { message ->
-                            Log.e(TAG, "An error occurred: $message")
-                            bindingSearchRecipeFromAPI!!.pbSearchRecipes.visibility = View.GONE
-                        }
-                    }
-                    is Resource.Loading -> {
-                        bindingSearchRecipeFromAPI!!.pbSearchRecipes.visibility = View.VISIBLE
-                    }
+            searchRecipeViewModel.searchRecipe(searchQuery)
 
-                    else -> {}
-                }
-            })
+            observeSearchRecipeResult()
 
         }
     }
 
-    private fun populateDataInUI(searchRecipeResult: SearchRecipeResult) {
-        searchRecipeResultAdapter = SearchRecipeResultAdapter(this)
-        searchRecipeResultAdapter.updateRecipes(searchRecipeResult)
+    private fun observeSearchRecipeResult() {
+        searchRecipeViewModel.searchRecipeObserver.observe(this, Observer { response ->
+            when(response) {
+                is Resource.Success -> {
+                    response.data?.let { recipes ->
+                        Log.i(TAG, recipes.results.size.toString())
+                        mBinding!!.pbSearchRecipes.visibility = View.GONE
+                        populateDataInUI(recipes)
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let { errorMessage ->
+                        Log.e(TAG, "An error occurred: $errorMessage")
+                        mBinding!!.pbSearchRecipes.visibility = View.GONE
+                    }
+                }
+                is Resource.Loading -> {
+                    mBinding!!.pbSearchRecipes.visibility = View.VISIBLE
+                }
 
-        bindingSearchRecipeFromAPI!!.rvSearchedRecipes.apply {
-            adapter = searchRecipeResultAdapter
+                else -> {}
+            }
+        })
+    }
+
+    private fun populateDataInUI(searchRecipeResult: SearchRecipeResult) {
+        searchRecipesAdapter = SearchRecipesAdapter(this)
+        searchRecipesAdapter.updateRecipes(searchRecipeResult)
+
+        mBinding!!.rvSearchedRecipes.apply {
+            adapter = searchRecipesAdapter
             layoutManager = LinearLayoutManager(this@SearchRecipeFromAPI)
             visibility = View.VISIBLE
         }
@@ -71,6 +76,6 @@ class SearchRecipeFromAPI : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        bindingSearchRecipeFromAPI = null
+        mBinding = null
     }
 }
