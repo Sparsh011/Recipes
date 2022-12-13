@@ -1,6 +1,7 @@
 package com.example.recipes.view.fragments
 
 import android.app.Dialog
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -172,7 +173,7 @@ class RandomDishFragment : Fragment() {
                 )
 
                 Toast.makeText(requireActivity(), "Added To Favorites!", Toast.LENGTH_SHORT).show()
-                addedToFavorites = true;
+                addedToFavorites = true
             }
         }
 
@@ -181,5 +182,15 @@ class RandomDishFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 }

@@ -1,21 +1,19 @@
 package com.example.recipes.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.recipes.model.database.FavDishRepository
 import com.example.recipes.model.entities.SearchRecipeResult
-import com.example.recipes.model.network.RandomDishApiService
 import com.example.recipes.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class SearchRecipeViewModel: ViewModel() {
-    private val searchRecipeApiService = RandomDishApiService()
+class SearchRecipeViewModel(private val repository: FavDishRepository): ViewModel() {
+
     val searchRecipeObserver : MutableLiveData<Resource<SearchRecipeResult>> = MutableLiveData()
 
     fun searchRecipe(query: String) = viewModelScope.launch {
         searchRecipeObserver.postValue(Resource.Loading())
-        val response = searchRecipeApiService.getSearchRecipeResult(query)
+        val response = repository.getSearchedRecipes(query)
         searchRecipeObserver.postValue(handleSearchRecipeResponse(response))
     }
 
@@ -27,5 +25,15 @@ class SearchRecipeViewModel: ViewModel() {
         }
 
         return Resource.Error(response.message())
+    }
+}
+
+class SearchRecipeViewModelFactory(private val repository: FavDishRepository) : ViewModelProvider.Factory{
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(SearchRecipeViewModel::class.java)){
+            @Suppress("UNCHECKED_CAST")
+            return SearchRecipeViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel Class")
     }
 }

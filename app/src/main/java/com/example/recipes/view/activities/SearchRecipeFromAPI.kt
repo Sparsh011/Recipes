@@ -4,20 +4,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recipes.application.FavDishApplication
 import com.example.recipes.databinding.ActivitySearchRecipeFromApiBinding
 import com.example.recipes.model.entities.SearchRecipeResult
 import com.example.recipes.utils.Resource
 import com.example.recipes.view.adapters.SearchRecipesAdapter
 import com.example.recipes.viewmodel.SearchRecipeViewModel
+import com.example.recipes.viewmodel.SearchRecipeViewModelFactory
 
 class SearchRecipeFromAPI : AppCompatActivity() {
     private var mBinding : ActivitySearchRecipeFromApiBinding? = null
-    private lateinit var searchRecipeViewModel: SearchRecipeViewModel
     private lateinit var searchRecipesAdapter: SearchRecipesAdapter
     private val TAG = "searchRecipeActivity"
+
+    private val searchRecipeViewModel: SearchRecipeViewModel by viewModels {
+        SearchRecipeViewModelFactory(((this.application) as FavDishApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,16 +30,13 @@ class SearchRecipeFromAPI : AppCompatActivity() {
         setContentView(mBinding!!.root)
         supportActionBar!!.hide()
 
-        searchRecipeViewModel = ViewModelProvider(this)[SearchRecipeViewModel::class.java]
-
         mBinding!!.ivSearchRecipe.setOnClickListener{
             val searchQuery = mBinding!!.etSearchRecipeFromApi.text.toString()
 
             searchRecipeViewModel.searchRecipe(searchQuery)
-
-            observeSearchRecipeResult()
-
         }
+
+        observeSearchRecipeResult()
     }
 
     private fun observeSearchRecipeResult() {
@@ -56,8 +58,6 @@ class SearchRecipeFromAPI : AppCompatActivity() {
                 is Resource.Loading -> {
                     mBinding!!.pbSearchRecipes.visibility = View.VISIBLE
                 }
-
-                else -> {}
             }
         })
     }
