@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_text"
-        android:background="?attr/selectableItemBackground"
+        android:background="@color/blue_grey_700"
         android:gravity="center"
         android:padding="@dimen/_10sdp"
-        android:textColor="@color/black"
+        android:textColor="@color/dish_image_background"
         android:textSize="@dimen/_16sdp"
         tools:text="Item Value"/>
 

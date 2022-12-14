@@ -18,5 +18,6 @@
     <color name="secondaryColor">#e8eaf6</color>
     <color name="secondaryDarkColor">#b6b8c3</color>
     <color name="secondaryTextColor">#000000</color>
+    <color name="my_black">#171622</color>
 
 </resources>

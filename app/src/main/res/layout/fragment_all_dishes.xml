@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/my_black"
     tools:context=".view.fragments.AllDishesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="@dimen/_25sdp"
+        android:backgroundTint="#1DE9B6"
         android:src="@drawable/ic_baseline_search_24"
         />
 

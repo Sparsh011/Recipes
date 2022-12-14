@@ -6,16 +6,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="@dimen/_5sdp"
     app:cardElevation="@dimen/_5sdp"
+    android:backgroundTint="@color/blue_grey_700"
     app:cardUseCompatPadding="true">
 <!--cardElevation creates shadow-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/blue_grey_700"
         android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
+            android:background="@color/blue_grey_700"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/iv_dish_image_in_cardView"
@@ -41,9 +44,10 @@
             android:id="@+id/tv_dish_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/blue_grey_700"
             android:layout_margin="@dimen/_10sdp"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/grey_900"
+            android:textColor="@color/white"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold|italic"
             tools:text="Dish Title"
