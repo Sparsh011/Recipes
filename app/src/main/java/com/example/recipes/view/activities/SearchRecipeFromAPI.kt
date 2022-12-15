@@ -1,5 +1,6 @@
 package com.example.recipes.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -34,6 +35,12 @@ class SearchRecipeFromAPI : AppCompatActivity() {
             val searchQuery = mBinding!!.etSearchRecipeFromApi.text.toString()
 
             searchRecipeViewModel.searchRecipe(searchQuery)
+        }
+
+
+        mBinding!!.ivGoBackFromSearchRecipe.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         observeSearchRecipeResult()

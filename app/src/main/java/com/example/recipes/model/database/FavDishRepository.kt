@@ -36,7 +36,6 @@ class FavDishRepository(private val favDishDao: FavDishDAO) {
 
     fun filteredListDishes(value: String): Flow<List<FavDish>> = favDishDao.getFilteredDishes(value)
 
-
     suspend fun getSearchedRecipes(query: String): Response<SearchRecipeResult> {
         val retrofitInstance = RandomDishApiService()
         return retrofitInstance.getSearchRecipeResult(query)

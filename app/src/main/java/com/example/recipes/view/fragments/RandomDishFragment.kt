@@ -92,9 +92,7 @@ class RandomDishFragment : Fragment() {
     }
 
     private fun hideProgressDialog(){
-        mProgressDialog?.let {
-            it.dismiss()
-        }
+        mProgressDialog?.dismiss()
     }
 
     private fun setRandomDishResponseInUI(recipe: RandomDish.Recipe){
