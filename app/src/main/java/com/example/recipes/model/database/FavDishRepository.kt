@@ -2,6 +2,7 @@ package com.example.recipes.model.database
 
 import androidx.annotation.WorkerThread
 import com.example.recipes.model.entities.FavDish
+import com.example.recipes.model.entities.SearchRecipe
 import com.example.recipes.model.entities.SearchRecipeResult
 import com.example.recipes.model.network.RandomDishApiService
 import kotlinx.coroutines.flow.Flow
@@ -36,9 +37,14 @@ class FavDishRepository(private val favDishDao: FavDishDAO) {
 
     fun filteredListDishes(value: String): Flow<List<FavDish>> = favDishDao.getFilteredDishes(value)
 
+    private val retrofitInstance = RandomDishApiService()
+
     suspend fun getSearchedRecipes(query: String): Response<SearchRecipeResult> {
-        val retrofitInstance = RandomDishApiService()
         return retrofitInstance.getSearchRecipeResult(query)
+    }
+
+    suspend fun recipeDetails(recipeId: Int) : Response<SearchRecipe.RecipesFromSearch>{
+        return retrofitInstance.getRecipeDetails(recipeId)
     }
 }
 

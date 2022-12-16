@@ -1,5 +1,6 @@
 package com.example.recipes.view.adapters
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipes.R
 import com.example.recipes.model.entities.SearchRecipeResult
+import com.example.recipes.view.activities.SearchRecipeFromAPI
 
 class SearchRecipesAdapter (
-    private val context: Context
+    private val activity: Activity
         ): RecyclerView.Adapter<SearchRecipesAdapter.SearchRecipeResultViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchRecipeResultViewHolder {
@@ -24,13 +26,21 @@ class SearchRecipesAdapter (
     override fun onBindViewHolder(holder: SearchRecipeResultViewHolder, position: Int) {
         val recipes = recipesResponse!!.results
         val recipe = recipes[position]
-        Glide.with(context)
+        Glide.with(activity.applicationContext)
             .load(recipe.image)
             .centerCrop()
             .placeholder(R.drawable.favorite_button_background)
             .into(holder.recipeImage)
 
         holder.recipeTitle.text = recipe.title
+
+        holder.itemView.setOnClickListener{
+            val recipeID = recipe.id
+
+            if (activity is SearchRecipeFromAPI){
+                activity.showRecipeDetails(recipeID)
+            }
+        }
     }
 
     private var recipesResponse : SearchRecipeResult?  = null

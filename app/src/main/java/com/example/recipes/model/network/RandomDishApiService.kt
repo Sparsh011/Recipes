@@ -1,6 +1,7 @@
 package com.example.recipes.model.network
 
 import com.example.recipes.model.entities.RandomDish
+import com.example.recipes.model.entities.SearchRecipe
 import com.example.recipes.model.entities.SearchRecipeResult
 import com.example.recipes.utils.Constants
 import io.reactivex.rxjava3.core.Single
@@ -22,5 +23,9 @@ class RandomDishApiService {
 
     suspend fun getSearchRecipeResult(query: String) : Response<SearchRecipeResult>{
         return api.searchRecipes(Constants.API_KEY_VALUE, query, Constants.LIMIT_LICENSE_VALUE, 5)
+    }
+
+    suspend fun getRecipeDetails(id: Int) : Response<SearchRecipe.RecipesFromSearch>{
+        return api.getRecipeDetails(id, Constants.API_KEY_VALUE)
     }
 }

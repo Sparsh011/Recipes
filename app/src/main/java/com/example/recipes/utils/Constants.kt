@@ -24,6 +24,7 @@ object Constants {
     const val NOTIFICATION_CHANNEL = "FavRecipe_channel_01"
     const val API_ENDPOINT_FOR_SEARCH_RECIPE = "recipes/complexSearch"
     const val QUERY = "query"
+    const val ENDPOINT_FOR_RECIPE_DETAILS = "recipes/{id}/information"
 
     fun dishTypes(): ArrayList<String>{
         val list = ArrayList<String>()

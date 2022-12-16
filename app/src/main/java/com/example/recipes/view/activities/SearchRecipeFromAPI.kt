@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -78,6 +79,28 @@ class SearchRecipeFromAPI : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@SearchRecipeFromAPI)
             visibility = View.VISIBLE
         }
+    }
+
+
+    fun showRecipeDetails(recipeId: Int){
+        searchRecipeViewModel.getRecipeDetails(recipeId)
+        searchRecipeViewModel.recipeDetailsObserver.observe(this, Observer { response ->
+            when(response) {
+                is Resource.Success -> {
+                    response.data?.let { details ->
+                        Log.i(TAG, "Success")
+                        Toast.makeText(this, details.title, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let { errorMessage ->
+                        Log.e(TAG, "An error occurred: $errorMessage")
+                    }
+                }
+                is Resource.Loading -> {
+                }
+            }
+        })
     }
 
 
