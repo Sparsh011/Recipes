@@ -25,6 +25,7 @@ object Constants {
     const val API_ENDPOINT_FOR_SEARCH_RECIPE = "recipes/complexSearch"
     const val QUERY = "query"
     const val ENDPOINT_FOR_RECIPE_DETAILS = "recipes/{id}/information"
+    const val SEARCH_RECIPE = "searchRecipe"
 
     fun dishTypes(): ArrayList<String>{
         val list = ArrayList<String>()

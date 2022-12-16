@@ -306,22 +306,7 @@ class AddUpdateDish : AppCompatActivity(), View.OnClickListener {
             val data = result.data
             if (data != null && data.data != null) {
                 val selectedImageUri = data.data
-//                var selectedImageBitmap: Bitmap? = null
-//                try {
-//                    selectedImageBitmap = if (Build.VERSION.SDK_INT < 28) {
-//                        MediaStore.Images.Media.getBitmap(this.contentResolver, selectedImageUri) // Content Resolver is used to share data among different parts in an application.
-//                    } else {
-//                        val source = selectedImageUri?.let {
-//                            ImageDecoder.createSource(this.contentResolver, it) //ImageDecoder is a class for converting encoded images (like PNG, JPEG, WEBP, GIF, or HEIF) into Drawable or Bitmap objects.
-//                        }
-//                        source?.let {
-//                            ImageDecoder.decodeBitmap(it)
-//                        }
-//                    }
-//                } catch (e: IOException) {
-//                    e.printStackTrace()
-//                }
-//                mBinding.ivDishImage.setImageBitmap(selectedImageBitmap)
+
                 Glide.with(this)
                     .load(selectedImageUri)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

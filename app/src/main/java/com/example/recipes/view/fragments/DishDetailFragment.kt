@@ -118,32 +118,32 @@ class DishDetailFragment : Fragment() {
                 var extraText = ""
                 val shareWith = "Share with"
 
-                mFavDishDetails?.let {
+                mFavDishDetails?.let { favDish ->
 
                     var image = ""
 
-                    if (it.imageSource == Constants.DISH_IMAGE_SOURCE_ONLINE) {
-                        image = it.image
+                    if (favDish.imageSource == Constants.DISH_IMAGE_SOURCE_ONLINE) {
+                        image = favDish.image
                     }
 
                     var cookingInstructions = ""
 
-                    // The instruction or you can say the Cooking direction text is in the HTML format so we will you the fromHtml to populate it in the TextView.
+//                    Cooking instructions are present in <li> types, so converting from HTML to string -
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         cookingInstructions = Html.fromHtml(
-                            it.directionToCook,
+                            favDish.directionToCook,
                             Html.FROM_HTML_MODE_COMPACT
                         ).toString()
                     } else {
                         @Suppress("DEPRECATION")
-                        cookingInstructions = Html.fromHtml(it.directionToCook).toString()
+                        cookingInstructions = Html.fromHtml(favDish.directionToCook).toString()
                     }
 
                     extraText =
                         "$image \n" +
-                                "\n Title:  ${it.title} \n\n Type: ${it.type} \n\n Category: ${it.category}" +
-                                "\n\n Ingredients: \n ${it.ingredients} \n\n Instructions To Cook: \n $cookingInstructions" +
-                                "\n\n Time required to cook the dish approx ${it.cookingTime} minutes."
+                                "\n Title:  ${favDish.title} \n\n Type: ${favDish.type} \n\n Category: ${favDish.category}" +
+                                "\n\n Ingredients: \n ${favDish.ingredients} \n\n Instructions To Cook: \n $cookingInstructions" +
+                                "\n\n Time required to cook the dish approx ${favDish.cookingTime} minutes."
                 }
 
 

@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipes.application.FavDishApplication
 import com.example.recipes.databinding.ActivitySearchRecipeFromApiBinding
+import com.example.recipes.model.entities.FavDish
+import com.example.recipes.model.entities.SearchRecipe
 import com.example.recipes.model.entities.SearchRecipeResult
+import com.example.recipes.utils.Constants
 import com.example.recipes.utils.Resource
 import com.example.recipes.view.adapters.SearchRecipesAdapter
 import com.example.recipes.viewmodel.SearchRecipeViewModel
@@ -87,20 +89,58 @@ class SearchRecipeFromAPI : AppCompatActivity() {
         searchRecipeViewModel.recipeDetailsObserver.observe(this, Observer { response ->
             when(response) {
                 is Resource.Success -> {
-                    response.data?.let { details ->
-                        Log.i(TAG, "Success")
-                        Toast.makeText(this, details.title, Toast.LENGTH_SHORT).show()
+                    response.data?.let { recipeFromSearch ->
+                        Log.i(TAG, "Successful Search Recipe Response")
+
+                        val ingredients = recipeFromSearch.extendedIngredients
+                        val finalIngredients = convertToString(ingredients)
+                        var dishType = "Other"
+
+                        if (recipeFromSearch.dishTypes.isNotEmpty()){
+                            dishType = recipeFromSearch.dishTypes[0]
+                        }
+
+                        val newDish = FavDish(recipeFromSearch.image,
+                            recipeFromSearch.sourceUrl,
+                            recipeFromSearch.title,
+                            dishType,
+                            "Other",
+                            finalIngredients,
+                            recipeFromSearch.readyInMinutes.toString(),
+                            recipeFromSearch.instructions,
+                            false,
+                            0
+                        )
+
+                        mBinding!!.pbSearchRecipes.visibility = View.INVISIBLE
+
+                        val intent = Intent(this, SearchedRecipeDetails::class.java)
+                        intent.putExtra(Constants.SEARCH_RECIPE, newDish)
+                        startActivity(intent)
                     }
                 }
+
                 is Resource.Error -> {
                     response.message?.let { errorMessage ->
                         Log.e(TAG, "An error occurred: $errorMessage")
+                        mBinding!!.pbSearchRecipes.visibility = View.INVISIBLE
                     }
                 }
+
                 is Resource.Loading -> {
+                    mBinding!!.pbSearchRecipes.visibility = View.VISIBLE
                 }
             }
         })
+    }
+
+    private fun convertToString(ingredients: List<SearchRecipe.ExtendedIngredient>): String {
+        var result = ""
+        for (ingredient in ingredients){
+            result += ingredient.name + " and it's quantity - " + ingredient.amount + " ${ingredient.measures.metric.unitShort}" + "\n"
+        }
+
+        return result
     }
 
 

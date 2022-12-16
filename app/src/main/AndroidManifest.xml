@@ -22,9 +22,11 @@
         android:theme="@style/Theme.Recipes"
         tools:targetApi="31">
         <activity
-            android:name=".view.activities.SearchRecipeFromAPI"
+            android:name=".view.activities.SearchedRecipeDetails"
             android:exported="false" />
-        <!-- Note - label is the text that will be shown in the ActionBar. configChanges set to orientation prevents restarts when the orientation changes. -->
+        <activity
+            android:name=".view.activities.SearchRecipeFromAPI"
+            android:exported="false" /> <!-- Note - label is the text that will be shown in the ActionBar. configChanges set to orientation prevents restarts when the orientation changes. -->
         <activity
             android:name=".view.activities.AddUpdateDish"
             android:configChanges="orientation"
