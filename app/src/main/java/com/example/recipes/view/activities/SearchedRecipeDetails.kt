@@ -57,7 +57,7 @@ class SearchedRecipeDetails : AppCompatActivity() {
         mBinding!!.tvTitle.text = recipe.title
         mBinding!!.tvCategory.text =  recipe.category
         mBinding!!.tvIngredients.text = recipe.ingredients
-        mBinding!!.tvCookingTime.text = recipe.cookingTime + " minutes"
+        mBinding!!.tvCookingTime.text = "Approximate Cooking Time: " + recipe.cookingTime + " minutes"
         mBinding!!.tvType.text = recipe.type
 
 

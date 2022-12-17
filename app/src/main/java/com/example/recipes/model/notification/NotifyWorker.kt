@@ -45,7 +45,11 @@ class NotifyWorker(context: Context, workerParams: WorkerParameters): Worker(con
             .bigPicture(bitmap)
             .bigLargeIcon(null)
 
-        val pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, 0)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_MUTABLE)
+        } else {
+            PendingIntent.getActivity(applicationContext, 0, intent, 0)
+        }
         val notification = NotificationCompat.Builder(applicationContext, Constants.NOTIFICATION_CHANNEL)
             .setContentTitle(titleNotification)
             .setContentText(subtitleNotification)
