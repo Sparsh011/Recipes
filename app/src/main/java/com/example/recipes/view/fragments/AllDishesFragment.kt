@@ -73,7 +73,6 @@ class AllDishesFragment : Fragment() {
         mBinding.btnSearchRecipe.setOnClickListener{
             val intentForSearchRecipe = Intent(activity, SearchRecipeFromAPI::class.java)
             startActivity(intentForSearchRecipe)
-            requireActivity().finish()
         }
 
 

@@ -2,6 +2,8 @@ package com.example.recipes.view.adapters
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.recipes.R
 import com.example.recipes.model.entities.SearchRecipeResult
 import com.example.recipes.view.activities.SearchRecipeFromAPI
+import com.example.recipes.view.activities.SearchedRecipeDetails
 
 class SearchRecipesAdapter (
     private val activity: Activity
@@ -36,10 +39,12 @@ class SearchRecipesAdapter (
 
         holder.itemView.setOnClickListener{
             val recipeID = recipe.id
+            Log.i("InAdapter", "Clicked")
 
-            if (activity is SearchRecipeFromAPI){
-                activity.showRecipeDetails(recipeID)
-            }
+            val intent = Intent(activity, SearchedRecipeDetails::class.java)
+            intent.putExtra("recipeId", recipeID)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            activity.applicationContext.startActivity(intent)
         }
     }
 

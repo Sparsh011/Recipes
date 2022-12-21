@@ -4,17 +4,22 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.recipes.R
 import com.example.recipes.application.FavDishApplication
 import com.example.recipes.databinding.ActivitySearchedRecipeDetailsBinding
 import com.example.recipes.model.entities.FavDish
-import com.example.recipes.utils.Constants
+import com.example.recipes.model.entities.SearchRecipe
+import com.example.recipes.utils.Resource
 import com.example.recipes.viewmodel.FavDishViewModel
 import com.example.recipes.viewmodel.FavDishViewModelFactory
+import com.example.recipes.viewmodel.SearchRecipeViewModel
+import com.example.recipes.viewmodel.SearchRecipeViewModelFactory
 
 @Suppress("DEPRECATION")
 class SearchedRecipeDetails : AppCompatActivity() {
@@ -22,29 +27,77 @@ class SearchedRecipeDetails : AppCompatActivity() {
     private val mFavDishViewModel: FavDishViewModel by viewModels {
         FavDishViewModelFactory(((this.application) as FavDishApplication).repository)
     }
+    private val searchRecipeViewModel: SearchRecipeViewModel by viewModels {
+        SearchRecipeViewModelFactory(((this.application) as FavDishApplication).repository)
+    }
+    private val TAG = "SearchRecipeDetails"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivitySearchedRecipeDetailsBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
+        supportActionBar!!.hide()
 
+        val recipeId = intent.getIntExtra("recipeId", -1)
+        searchRecipeViewModel.getRecipeDetails(recipeId)
+        var recipe: FavDish? = null
 
-        val recipe = intent.getParcelableExtra<FavDish>(Constants.SEARCH_RECIPE)
-        populateDataInUI(recipe)
+        searchRecipeViewModel.recipeDetailsObserver.observe(this, Observer { response ->
+            when(response) {
+                is Resource.Success -> {
+                    response.data?.let { recipeFromSearch ->
+                        Log.i(TAG, "Successful Search Recipe Response")
+
+                        val ingredients = recipeFromSearch.extendedIngredients
+                        val finalIngredients = convertIngredientsListToString(ingredients)
+                        var dishType = "Other"
+
+                        if (recipeFromSearch.dishTypes.isNotEmpty()){
+                            dishType = recipeFromSearch.dishTypes[0]
+                        }
+
+                        recipe = FavDish(recipeFromSearch.image,
+                            recipeFromSearch.sourceUrl,
+                            recipeFromSearch.title,
+                            dishType,
+                            "Other",
+                            finalIngredients,
+                            recipeFromSearch.readyInMinutes.toString(),
+                            recipeFromSearch.instructions,
+                            false,
+                            0
+                        )
+
+                        populateDataInUI(recipe)
+
+                    }
+                }
+
+                is Resource.Error -> {
+                    response.message?.let { errorMessage ->
+                        Log.e(TAG, "An error occurred: $errorMessage")
+                    }
+                }
+
+                is Resource.Loading -> {
+                }
+            }
+        })
+
 
 
         mBinding!!.ivFavoriteDish.setOnClickListener{
-            recipe!!.favouriteDish = !recipe.favouriteDish
+            recipe!!.favouriteDish = !recipe!!.favouriteDish
 
-            if (recipe.favouriteDish){
+            if (recipe!!.favouriteDish){
                 mBinding!!.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_selected))
                 Toast.makeText(this, "Added To Favorites!", Toast.LENGTH_SHORT).show()
-                mFavDishViewModel.insert(recipe)
+                mFavDishViewModel.insert(recipe!!)
             }
             else{
                 mBinding!!.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_unselected))
                 Toast.makeText(this, "Removed From Favorites!", Toast.LENGTH_SHORT).show()
-                mFavDishViewModel.update(recipe)
+                mFavDishViewModel.update(recipe!!)
             }
         }
     }
@@ -86,5 +139,18 @@ class SearchedRecipeDetails : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
+    }
+
+    override fun onBackPressed() {
+        finish()
+    }
+
+    private fun convertIngredientsListToString(ingredients: List<SearchRecipe.ExtendedIngredient>): String {
+        var result = ""
+        for (ingredient in ingredients){
+            result += ingredient.name + " and it's quantity - " + ingredient.amount + " ${ingredient.measures.metric.unitShort}" + "\n"
+        }
+
+        return result
     }
 }
