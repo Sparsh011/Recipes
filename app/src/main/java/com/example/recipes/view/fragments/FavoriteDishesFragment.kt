@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -30,6 +31,42 @@ class FavoriteDishesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observeFavoriteDishes()
+
+        _binding!!.etSearchFromFavorites.addTextChangedListener { searchInFavoritesEditable ->
+            if (searchInFavoritesEditable!!.isNotEmpty()){
+                mFavDishViewModel.favoriteDishes.observe(viewLifecycleOwner){ dishes ->
+                    dishes.let { mFavDishes ->
+                        _binding!!.rvFavoriteDishesList.layoutManager = GridLayoutManager(requireActivity(), 2)
+                        val adapter = FavDishAdapter(this)
+                        _binding!!.rvFavoriteDishesList.adapter = adapter
+
+                        if (mFavDishes.isNotEmpty()){
+                            val currentList = arrayListOf<FavDish>()
+                            for (dish in mFavDishes){
+                                if (dish.title.lowercase().startsWith(searchInFavoritesEditable.toString().lowercase())){
+                                    currentList.add(dish)
+                                }
+                            }
+
+                            _binding!!.rvFavoriteDishesList.visibility = View.VISIBLE
+                            _binding!!.tvNoFavoriteDishesAvailable.visibility = View.GONE
+                            adapter.dishesList(currentList)
+                        }
+                        else{
+                            _binding!!.rvFavoriteDishesList.visibility = View.GONE
+                            _binding!!.tvNoFavoriteDishesAvailable.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
+
+            else observeFavoriteDishes()
+        }
+    }
+
+    private fun observeFavoriteDishes() {
         mFavDishViewModel.favoriteDishes.observe(viewLifecycleOwner){ dishes ->
             dishes.let {
                 _binding!!.rvFavoriteDishesList.layoutManager = GridLayoutManager(requireActivity(), 2)

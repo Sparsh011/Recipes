@@ -4,7 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/my_black"
     tools:context=".view.fragments.AllDishesFragment">
+
+    <LinearLayout
+        android:id="@+id/ll_search_recipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:weightSum="2">
+
+        <EditText
+            android:id="@+id/et_search_saved_recipes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColorHint="@color/secondaryDarkColor"
+            android:hint="Search Saved Recipes..."
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_16sdp"
+            android:layout_weight="1.2"
+            android:background="@drawable/background_box"
+            android:layout_margin="@dimen/_7sdp"
+            />
+
+        <TextView
+            android:id="@+id/btn_search_recipe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:backgroundTint="#1DE9B6"
+            android:text="Or Search On Web"
+            android:layout_weight="0.8"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_12sdp"
+            android:padding="@dimen/_6sdp"
+            android:textColor="@color/secondaryDarkColor"
+            android:textStyle="italic"
+            />
+
+    </LinearLayout>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_dishes_list"
@@ -14,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_search_recipe" />
 
     <TextView
         android:id="@+id/tv_no_dishes_added_yet"
@@ -29,5 +76,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

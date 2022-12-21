@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cl_search_recipe"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/my_black"
+    tools:context=".view.activities.SearchRecipeFromAPI">
+
+    <ImageView
+        android:id="@+id/iv_go_back_from_search_recipe"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:padding="@dimen/_4sdp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        android:layout_margin="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toEndOf="@+id/iv_go_back_from_search_recipe"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <EditText
+            android:id="@+id/et_search_recipe_from_api"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
+            android:hint="@string/search_recipe_from_web"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1.8"
+            android:textSize="@dimen/_15sdp"
+            android:textColorHint="@color/secondaryDarkColor"
+            android:textColor="@color/dish_image_background"
+            android:background="@drawable/background_box"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+             />
+
+        <ImageView
+            android:id="@+id/ivSearchRecipe"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:src="@drawable/ic_baseline_search_24"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:padding="@dimen/_4sdp"
+            />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_searched_recipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:paddingBottom="?attr/actionBarSize"
+        />
+
+    <ProgressBar
+        android:id="@+id/pb_search_recipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

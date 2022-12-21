@@ -9,7 +9,7 @@ object Constants {
     const val EXTRA_DISH_DETAILS: String = "DishDetails"
     const val FILTER_SELECTION: String = "FilterSelection"
     const val ALL_ITEMS: String = "All"
-    const val API_ENDPOINT = "recipes/random" // Will attach it to the base url
+    const val API_ENDPOINT_FOR_RANDOM_DISH = "recipes/random" // Will attach it to the base url
     const val API_KEY : String = "apiKey"
     const val LIMIT_LICENSE: String = "limitLicense"
     const val TAGS: String = "tags" //The tags (can be diets, meal types, cuisines, or intolerances) that the recipe must have.
@@ -22,6 +22,10 @@ object Constants {
     const val NOTIFICATION_ID = "FavRecipe_notification_id"
     const val NOTIFICATION_NAME = "FavRecipe"
     const val NOTIFICATION_CHANNEL = "FavRecipe_channel_01"
+    const val API_ENDPOINT_FOR_SEARCH_RECIPE = "recipes/complexSearch"
+    const val QUERY = "query"
+    const val ENDPOINT_FOR_RECIPE_DETAILS = "recipes/{id}/information"
+    const val SEARCH_RECIPE = "searchRecipe"
 
     fun dishTypes(): ArrayList<String>{
         val list = ArrayList<String>()

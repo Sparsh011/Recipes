@@ -6,14 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.GridLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipes.R
@@ -24,11 +21,11 @@ import com.example.recipes.model.entities.FavDish
 import com.example.recipes.utils.Constants
 import com.example.recipes.view.activities.AddUpdateDish
 import com.example.recipes.view.activities.MainActivity
+import com.example.recipes.view.activities.SearchRecipeFromAPI
 import com.example.recipes.view.adapters.CustomListItemAdapter
 import com.example.recipes.view.adapters.FavDishAdapter
 import com.example.recipes.viewmodel.FavDishViewModel
 import com.example.recipes.viewmodel.FavDishViewModelFactory
-import com.example.recipes.viewmodel.HomeViewModel
 
 class AllDishesFragment : Fragment() {
 
@@ -52,11 +49,11 @@ class AllDishesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(), 2) // 2 columns in layout
+        mBinding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(), 2)
         mFavDishAdapter = FavDishAdapter(this@AllDishesFragment)
         mBinding.rvDishesList.adapter = mFavDishAdapter
 
-//        Adding an observer for our live data -
+//        Observing allDishes live data -
         mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) { dishes ->
             dishes.let {
                 if (it.isNotEmpty()){
@@ -70,6 +67,59 @@ class AllDishesFragment : Fragment() {
                     mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
                 }
             }
+        }
+
+
+        mBinding.btnSearchRecipe.setOnClickListener{
+            val intentForSearchRecipe = Intent(activity, SearchRecipeFromAPI::class.java)
+            startActivity(intentForSearchRecipe)
+        }
+
+
+
+        mBinding.etSearchSavedRecipes.addTextChangedListener{ editable ->
+                if (isAdded){
+                    if (editable.toString().isNotEmpty()) {
+                        mFavDishViewModel.allDishesList.observe(viewLifecycleOwner){ dishes ->
+                            val resultList = ArrayList<FavDish>()
+
+                            for (recipe in dishes){
+                                if (recipe.title.lowercase().startsWith(editable.toString().lowercase())){
+                                    resultList.add(recipe)
+                                }
+                            }
+
+                            resultList.let { result ->
+                                if (result.isNotEmpty()) {
+                                    mBinding.rvDishesList.visibility = View.VISIBLE
+                                    mBinding.tvNoDishesAddedYet.visibility = View.GONE
+                                    mFavDishAdapter.dishesList(result)
+                                } else {
+                                    mBinding.rvDishesList.visibility = View.GONE
+                                    mBinding.tvNoDishesAddedYet.text = "No Dish Found!"
+                                    mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                                }
+                            }
+                        }
+                    } else {
+                            mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) { dishes ->
+                                dishes.let {
+                                    if (it.isNotEmpty()) {
+                                        mBinding.rvDishesList.visibility = View.VISIBLE
+                                        mBinding.tvNoDishesAddedYet.visibility = View.GONE
+                                        mFavDishAdapter.dishesList(it)
+                                    } else {
+                                        mBinding.rvDishesList.visibility = View.GONE
+                                        mBinding.tvNoDishesAddedYet.text = "No Dish Added Yet!"
+                                        mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                                    }
+                                }
+
+
+                        }
+                    }
+                }
+
         }
     }
 
@@ -161,6 +211,7 @@ class AllDishesFragment : Fragment() {
                     }
                     else{
                         mBinding.rvDishesList.visibility = View.GONE
+                        mBinding.tvNoDishesAddedYet.text = "No Dish Added Yet!"
                         mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
                     }
                 }
