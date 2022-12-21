@@ -8,6 +8,21 @@
     tools:context=".view.fragments.FavoriteDishesFragment">
 
 
+    <EditText
+        android:id="@+id/et_search_from_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="Search Favorites..."
+        android:background="@drawable/background_box"
+        android:layout_margin="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColorHint="@color/secondaryDarkColor"
+        android:textSize="@dimen/_16sdp"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_favorite_dishes_list"
         android:layout_width="0dp"
@@ -15,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/et_search_from_favorites"/>
 
     <TextView
         android:id="@+id/tv_no_favorite_dishes_available"

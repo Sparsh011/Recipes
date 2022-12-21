@@ -78,7 +78,6 @@ class AllDishesFragment : Fragment() {
 
 
         mBinding.etSearchSavedRecipes.addTextChangedListener{ editable ->
-
                 if (isAdded){
                     if (editable.toString().isNotEmpty()) {
                         mFavDishViewModel.allDishesList.observe(viewLifecycleOwner){ dishes ->
