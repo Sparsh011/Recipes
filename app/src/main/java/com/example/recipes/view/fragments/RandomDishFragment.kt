@@ -40,11 +40,11 @@ class RandomDishFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mRandomDishViewModel = ViewModelProvider(this)[RandomDishViewModel::class.java]
 
-        mRandomDishViewModel.getRandomRecipeFromApi()
+        context?.let { mRandomDishViewModel.getRandomRecipeFromApi(it) }
         randomDishViewModelObserver()
 
         mBinding!!.srlRandomDish.setOnRefreshListener {
-            mRandomDishViewModel.getRandomRecipeFromApi()
+            context?.let { mRandomDishViewModel.getRandomRecipeFromApi(it) }
         }
     }
 

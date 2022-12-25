@@ -39,7 +39,7 @@ class SearchedRecipeDetails : AppCompatActivity() {
         supportActionBar!!.hide()
 
         val recipeId = intent.getIntExtra("recipeId", -1)
-        searchRecipeViewModel.getRecipeDetails(recipeId)
+        searchRecipeViewModel.getRecipeDetails(recipeId, this)
         var recipe: FavDish? = null
 
         searchRecipeViewModel.recipeDetailsObserver.observe(this, Observer { response ->
@@ -75,6 +75,7 @@ class SearchedRecipeDetails : AppCompatActivity() {
 
                 is Resource.Error -> {
                     response.message?.let { errorMessage ->
+                        Toast.makeText(this, "An error occurred: $errorMessage", Toast.LENGTH_SHORT).show()
                         Log.e(TAG, "An error occurred: $errorMessage")
                     }
                 }

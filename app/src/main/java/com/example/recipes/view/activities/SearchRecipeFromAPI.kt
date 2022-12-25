@@ -5,16 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.OnBackPressedCallback
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipes.application.FavDishApplication
 import com.example.recipes.databinding.ActivitySearchRecipeFromApiBinding
-import com.example.recipes.model.entities.FavDish
-import com.example.recipes.model.entities.SearchRecipe
 import com.example.recipes.model.entities.SearchRecipeResult
-import com.example.recipes.utils.Constants
 import com.example.recipes.utils.Resource
 import com.example.recipes.view.adapters.SearchRecipesAdapter
 import com.example.recipes.viewmodel.SearchRecipeViewModel
@@ -38,7 +35,7 @@ class SearchRecipeFromAPI : AppCompatActivity() {
         mBinding!!.ivSearchRecipe.setOnClickListener{
             val searchQuery = mBinding!!.etSearchRecipeFromApi.text.toString()
 
-            searchRecipeViewModel.searchRecipe(searchQuery)
+            searchRecipeViewModel.searchRecipe(searchQuery, this)
         }
 
 
@@ -65,6 +62,7 @@ class SearchRecipeFromAPI : AppCompatActivity() {
                 is Resource.Error -> {
                     response.message?.let { errorMessage ->
                         Log.e(TAG, "An error occurred: $errorMessage")
+                        Toast.makeText(this, "An error occurred: $errorMessage", Toast.LENGTH_SHORT).show()
                         mBinding!!.pbSearchRecipes.visibility = View.GONE
                     }
                 }
