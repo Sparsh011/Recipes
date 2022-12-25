@@ -1,5 +1,5 @@
 # Recipes
-<h4>This is a Recipe saving application in which users can save recipes of their favorite dishes or save some random dish's recipe fetched from the web. Users can perform CRUD operations on recipes and can also filter them on the basis of recipe's type. Users can also search recipes (from API) by typing that recipe's name or main ingredient.</h4>
+<h4>This is a Recipe saving application in which users can save recipes of their favorite dishes or save some random dish's recipe fetched from the web. Users can perform CRUD operations on recipes and can also filter them on the basis of recipe's type. Users can also search recipes (from API) by typing that recipe's name or main ingredient and save that recipe to database.</h4>
 
 ## Tech Stack
 <ul>
