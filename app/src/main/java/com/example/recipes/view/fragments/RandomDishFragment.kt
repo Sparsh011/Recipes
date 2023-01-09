@@ -40,6 +40,7 @@ class RandomDishFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mRandomDishViewModel = ViewModelProvider(this)[RandomDishViewModel::class.java]
 
+//        Context is passed because we have to check whether the device is connected to internet or not
         context?.let { mRandomDishViewModel.getRandomRecipeFromApi(it) }
         randomDishViewModelObserver()
 
@@ -51,8 +52,8 @@ class RandomDishFragment : Fragment() {
     private fun randomDishViewModelObserver(){
         mRandomDishViewModel.randomDishResponse.observe(viewLifecycleOwner) { randomDishResponse ->
             randomDishResponse?.let {
-                Log.i("Random Dish response", "${randomDishResponse.recipes[0]}")
-                setRandomDishResponseInUI(randomDishResponse.recipes[0])
+                Log.i("Random Dish response", "${it.recipes[0]}")
+                setRandomDishResponseInUI(it.recipes[0])
                 if (mBinding!!.srlRandomDish.isRefreshing){
                     mBinding!!.srlRandomDish.isRefreshing = false
                 }
@@ -61,7 +62,7 @@ class RandomDishFragment : Fragment() {
 
         mRandomDishViewModel.randomDishLoadingError.observe(viewLifecycleOwner){ dataError ->
             dataError?.let {
-                Log.i("Random Dish API error", "$dataError")
+                Log.i("Random Dish API error", "$it")
                 if (mBinding!!.srlRandomDish.isRefreshing){
                     mBinding!!.srlRandomDish.isRefreshing = false
                 }
@@ -70,7 +71,7 @@ class RandomDishFragment : Fragment() {
 
         mRandomDishViewModel.loadRandomDish.observe(viewLifecycleOwner){ loadRandomDish ->
             loadRandomDish?.let {
-                Log.i("Random Dish Loading", "$loadRandomDish")
+                Log.i("Random Dish Loading", "$it")
 
                 if (loadRandomDish && !mBinding!!.srlRandomDish.isRefreshing){
                     showCustomProgressDialog()

@@ -2,7 +2,6 @@ package com.example.recipes.view.activities
 
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -15,7 +14,6 @@ import com.example.recipes.R
 import com.example.recipes.databinding.ActivityMainBinding
 import com.example.recipes.model.notification.NotifyWorker
 import com.example.recipes.utils.Constants
-import kotlinx.coroutines.flow.combine
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         startWork()
     }
 
+
+//    Override this method to use the back button in DishDetailFragment
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(mNavController, null)
     }

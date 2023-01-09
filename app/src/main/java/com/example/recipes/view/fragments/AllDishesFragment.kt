@@ -54,13 +54,13 @@ class AllDishesFragment : Fragment() {
         mBinding.rvDishesList.adapter = mFavDishAdapter
 
 //        Observing allDishes live data -
-        mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) { dishes ->
-            dishes.let {
-                if (it.isNotEmpty()){
+        mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) { allDishesList ->
+            allDishesList?.let { dishes ->
+                if (dishes.isNotEmpty()){
                     mBinding.rvDishesList.visibility = View.VISIBLE
                     mBinding.tvNoDishesAddedYet.visibility = View.GONE
 
-                    mFavDishAdapter.dishesList(it)
+                    mFavDishAdapter.dishesList(dishes)
                 }
                 else{
                     mBinding.rvDishesList.visibility = View.GONE
@@ -102,12 +102,12 @@ class AllDishesFragment : Fragment() {
                             }
                         }
                     } else {
-                            mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) { dishes ->
-                                dishes.let {
-                                    if (it.isNotEmpty()) {
+                            mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) { allDishes ->
+                                allDishes?.let { dishes ->
+                                    if (dishes.isNotEmpty()) {
                                         mBinding.rvDishesList.visibility = View.VISIBLE
                                         mBinding.tvNoDishesAddedYet.visibility = View.GONE
-                                        mFavDishAdapter.dishesList(it)
+                                        mFavDishAdapter.dishesList(dishes)
                                     } else {
                                         mBinding.rvDishesList.visibility = View.GONE
                                         mBinding.tvNoDishesAddedYet.text = "No Dish Added Yet!"
@@ -152,12 +152,6 @@ class AllDishesFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (requireActivity() is MainActivity){
-            (activity as MainActivity?)?.showBottomNavigation()
-        }
-    }
 
     fun deleteDish(dish: FavDish){
         val builder = AlertDialog.Builder(requireActivity())
@@ -201,13 +195,13 @@ class AllDishesFragment : Fragment() {
         Log.i("Filter Selection", filterItemSelection)
 
         if (filterItemSelection == Constants.ALL_ITEMS){
-            mFavDishViewModel.allDishesList.observe(viewLifecycleOwner){ dishes ->
-                dishes.let {
-                    if (it.isNotEmpty()){
+            mFavDishViewModel.allDishesList.observe(viewLifecycleOwner){ allDishes ->
+                allDishes?.let { dishes ->
+                    if (dishes.isNotEmpty()){
                         mBinding.rvDishesList.visibility = View.VISIBLE
                         mBinding.tvNoDishesAddedYet.visibility = View.GONE
 
-                        mFavDishAdapter.dishesList(it)
+                        mFavDishAdapter.dishesList(dishes)
                     }
                     else{
                         mBinding.rvDishesList.visibility = View.GONE
@@ -218,13 +212,13 @@ class AllDishesFragment : Fragment() {
             }
         }
         else{
-            mFavDishViewModel.getFilteredList(filterItemSelection).observe(viewLifecycleOwner){ dishes->
-                dishes.let {
-                    if (it.isNotEmpty()){
+            mFavDishViewModel.getFilteredList(filterItemSelection).observe(viewLifecycleOwner){ filteredDishesList->
+                filteredDishesList?.let { filteredList ->
+                    if (filteredList.isNotEmpty()){
                         mBinding.rvDishesList.visibility = View.VISIBLE
                         mBinding.tvNoDishesAddedYet.visibility = View.GONE
 
-                        mFavDishAdapter.dishesList(it)
+                        mFavDishAdapter.dishesList(filteredList)
                     }
                     else{
                         mBinding.rvDishesList.visibility = View.GONE
@@ -232,6 +226,13 @@ class AllDishesFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (requireActivity() is MainActivity){
+            (activity as MainActivity?)?.showBottomNavigation()
         }
     }
 }
