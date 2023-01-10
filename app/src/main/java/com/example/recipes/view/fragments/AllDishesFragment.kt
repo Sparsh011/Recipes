@@ -2,6 +2,7 @@ package com.example.recipes.view.fragments
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -35,13 +36,16 @@ class AllDishesFragment : Fragment() {
     private val mFavDishViewModel: FavDishViewModel by viewModels {
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
+    private val TAG = "AllDishesFragmentTag"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(TAG, "onCreate: Called")
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.i(TAG, "onCreateView: Called")
         mBinding = FragmentAllDishesBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -49,6 +53,7 @@ class AllDishesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.i(TAG, "onViewCreated: Called")
         mBinding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(), 2)
         mFavDishAdapter = FavDishAdapter(this@AllDishesFragment)
         mBinding.rvDishesList.adapter = mFavDishAdapter
@@ -231,8 +236,54 @@ class AllDishesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        Log.i(TAG, "onResume: Called")
         if (requireActivity() is MainActivity){
             (activity as MainActivity?)?.showBottomNavigation()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart: Called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i(TAG, "onPause: Called")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.i(TAG, "onAttach: Called")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.i(TAG, "onDetach: Called")
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Log.i(TAG, "onViewStateRestored: Called, restore data from here")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.i(TAG, "onSaveInstanceState: Called, save data here")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG, "onStop: Called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG, "onDestroy: Called")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.i(TAG, "onDestroyView: Called")
     }
 }
