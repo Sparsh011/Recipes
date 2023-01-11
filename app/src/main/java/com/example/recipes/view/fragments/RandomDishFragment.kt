@@ -1,6 +1,7 @@
 package com.example.recipes.view.fragments
 
 import android.app.Dialog
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
@@ -30,6 +31,7 @@ class RandomDishFragment : Fragment() {
     private var mBinding: FragmentRandomDishBinding? = null
     private lateinit var mRandomDishViewModel: RandomDishViewModel
     private var mProgressDialog: Dialog? = null
+    private val TAG = "RandomDishFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
        mBinding = FragmentRandomDishBinding.inflate(inflater, container, false)
@@ -40,11 +42,13 @@ class RandomDishFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mRandomDishViewModel = ViewModelProvider(this)[RandomDishViewModel::class.java]
 
+        Log.i(TAG, "onViewCreated: Called")
 //        Context is passed because we have to check whether the device is connected to internet or not
         context?.let { mRandomDishViewModel.getRandomRecipeFromApi(it) }
         randomDishViewModelObserver()
 
         mBinding!!.srlRandomDish.setOnRefreshListener {
+            Log.i(TAG, "Refreshing layout...")
             context?.let { mRandomDishViewModel.getRandomRecipeFromApi(it) }
         }
     }
@@ -181,15 +185,38 @@ class RandomDishFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
+        Log.i(TAG, "onDestroy: Called")
     }
 
     override fun onResume() {
         super.onResume()
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        Log.i(TAG, "onResume: Called")
     }
 
     override fun onPause() {
         super.onPause()
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+        Log.i(TAG, "onPause: Called")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart: Called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG, "onStop: Called")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.i(TAG, "onDetach: Called")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.i(TAG, "onAttach: Called")
     }
 }
