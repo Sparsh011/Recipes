@@ -17,14 +17,14 @@ import com.example.recipes.utils.Constants
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var activityMainBinding: ActivityMainBinding
     private lateinit var mNavController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(activityMainBinding.root)
 
         mNavController = findNavController(R.id.nav_host_fragment_activity_main)
 
@@ -33,12 +33,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_all_dishes, R.id.navigation_favorite_dishes, R.id.navigation_random_dish
             )
         )
+
         setupActionBarWithNavController(mNavController, appBarConfiguration)
-        binding.navView.setupWithNavController(mNavController)
+        activityMainBinding.navView.setupWithNavController(mNavController)
 
         if(intent.hasExtra(Constants.NOTIFICATION_ID)){
             val notificationId = intent.getIntExtra(Constants.NOTIFICATION_ID, 0)
-            binding.navView.selectedItemId = R.id.navigation_random_dish
+            activityMainBinding.navView.selectedItemId = R.id.navigation_random_dish
         }
 
         startWork()
@@ -52,15 +53,16 @@ class MainActivity : AppCompatActivity() {
 
     fun hideBottomNavigation(){
 //        Hiding the bottom navigation using animation -
-        binding.navView.clearAnimation()
-        binding.navView.animate().translationY(binding.navView.height.toFloat()).duration = 300
-        binding.navView.visibility = View.GONE
+        activityMainBinding.navView.clearAnimation()
+        activityMainBinding.navView.animate().translationY(activityMainBinding.navView.height.toFloat()).duration = 300
+        activityMainBinding.navView.visibility = View.GONE
     }
+
     fun showBottomNavigation(){
 //        Hiding the bottom navigation using animation -
-        binding.navView.clearAnimation()
-        binding.navView.animate().translationY(0f).duration = 300
-        binding.navView.visibility = View.VISIBLE
+        activityMainBinding.navView.clearAnimation()
+        activityMainBinding.navView.animate().translationY(0f).duration = 300
+        activityMainBinding.navView.visibility = View.VISIBLE
     }
 
     private fun startWork(){

@@ -12,7 +12,7 @@ interface FavDishDAO {
     suspend fun insertFavDishDetails(favDish: FavDish)
 
     @Query("SELECT * FROM FAV_DISHES_TABLE ORDER BY ID") // ID is the order in which dish was added to the table
-    fun getAllDishes() : Flow<List<FavDish>> // Flow is used to observe the changes made to data.
+    fun getAllDishes() : Flow<List<FavDish>> // Flow is used to observe the changes made to data. We don't need to make @Query functions suspend if we return Flow/LiveData as room handles it asynchronously itself.
 
     @Update
     suspend fun updateFavDishDetails(favDish: FavDish) // This favDish is received from repository
