@@ -14,6 +14,6 @@ class OpenAiAPIService {
 
 
     suspend fun getResponse(request : OpenAIRequest) : ChatGPTResponse {
-        return openAiAPI.getCompletion("application/json", "Bearer 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", request)
+        return openAiAPI.getCompletion("application/json", "Bearer sk-hehe", request)
     }
 }
