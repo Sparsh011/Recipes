@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_baseline_random_dish"
         android:title="@string/title_random_dish" />
 
+    <item
+        android:id="@+id/navigation_open_ai"
+        android:icon="@drawable/baseline_lightbulb_24"
+        android:title="@string/title_open_ai" />
+
 </menu>

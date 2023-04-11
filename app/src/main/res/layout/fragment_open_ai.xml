@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/my_black">
+
+    <TextView
+        android:id="@+id/tv_chat_gpt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:text="Try ChatGPT To Get Recipe Of A Dish!"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_margin="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_enter_recipe_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_chat_gpt">
+
+
+        <EditText
+            android:id="@+id/et_search_query_for_open_ai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_chat_gpt"
+            android:textColorHint="@color/secondaryDarkColor"
+            android:hint="Enter Recipe Name"
+            android:textColor="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_weight="0.3"
+            />
+
+        <ImageView
+            android:id="@+id/iv_send_query"
+            android:layout_weight="1.7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_search_24"
+            android:layout_margin="@dimen/_10sdp"
+            app:layout_constraintStart_toEndOf="@+id/et_search_query_for_open_ai"
+            app:layout_constraintTop_toTopOf="@+id/et_search_query_for_open_ai"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/et_search_query_for_open_ai"/>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_chatgpt_response"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ll_enter_recipe_name"
+        android:padding="@dimen/_10sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:textColor="@color/white"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

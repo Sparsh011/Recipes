@@ -3,6 +3,7 @@
     <string name="title_all_dishes">All Dishes</string>
     <string name="title_favorite_dishes">Favorites</string>
     <string name="title_random_dish">Random Dish</string>
+    <string name="title_open_ai">ChatGPT</string>
 
 
     <string name="title_select_image_action">Select Image Via</string>

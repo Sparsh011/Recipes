@@ -30,6 +30,13 @@
         android:name="com.example.recipes.view.fragments.RandomDishFragment"
         android:label="@string/title_random_dish"
         tools:layout="@layout/fragment_random_dish" />
+
+    <fragment
+        android:id="@+id/navigation_open_ai"
+        android:name="com.example.recipes.view.fragments.OpenAiFragment"
+        android:label="@string/title_open_ai"
+        tools:layout="@layout/fragment_open_ai" />
+
     <fragment
         android:id="@+id/navigation_dish_details"
         android:name="com.example.recipes.view.fragments.DishDetailFragment"
